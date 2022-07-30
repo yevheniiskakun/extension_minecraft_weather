@@ -45,13 +45,15 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getFormattedTime(unix_time){
+function getFormattedTime(unix_time, timezone){
   let unix_timestamp = unix_time
   // Create a new JavaScript Date object based on the timestamp
   // multiplied by 1000 so that the argument is in milliseconds, not seconds.
   var date = new Date(unix_timestamp * 1000);
   // Hours part from the timestamp
   var hours = date.getHours();
+  // timezone is shift in seconds from UTC
+  hours = hours + timezone / 3600
   // Minutes part from the timestamp
   var minutes = "0" + date.getMinutes();
   // Will display time in 10:30:23 format
@@ -95,9 +97,8 @@ if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooa
 
             let weather_description = data.weather[0].description;
 
-            var time_sunrise = getFormattedTime(data.sys.sunrise);
-            var time_sunset = getFormattedTime(data.sys.sunset);
-            
+            var time_sunrise = getFormattedTime(data.sys.sunrise, data.timezone);
+            var time_sunset = getFormattedTime(data.sys.sunset, data.timezone);
             
 
             console.log("API weather description: ", data.weather[0].description)
