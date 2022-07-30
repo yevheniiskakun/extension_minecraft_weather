@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Minecraft Weather",
+    "version": "1.0.2.6",
+    "icons": 
+      {
+        "512": "newtab_icon.jpg"
+      },
+    "description": "Chrome extension which change your new tab to live weather forecast with Minecraft theme and funny quotes",
+
+    "content_scripts": [
+        {
+          "matches": [
+            "<all_urls>"
+          ],
+          "js": ["content.js"]
+        }
+      ],
+      "chrome_url_overrides": {
+        "newtab": "newtab.html"
+    }
+  }
