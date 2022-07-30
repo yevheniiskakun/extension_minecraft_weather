@@ -63,7 +63,7 @@ function getFormattedTime(unix_time, timezone){
   var minutes = "0" + date.getMinutes();
   // Will display time in 10:30:23 format
   var formattedTime = hours;
-  console.log("Formatted time", formattedTime);
+  //console.log("Formatted time", formattedTime);
   return formattedTime;
             
 }
@@ -107,8 +107,10 @@ if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooa
             var hour_now= new Date().toLocaleTimeString([], { hour: '2-digit'});
             
 
-            //hour_now = 23
-            console.log("hour_now:", hour_now);
+            //hour_now = 1
+            //celsius_temp = 30
+            //weather_description = "snow";
+            //console.log("hour_now:", hour_now);
             //console.log("API weather description: ", data.weather[0].description)
 
             function create_url(random_int){
