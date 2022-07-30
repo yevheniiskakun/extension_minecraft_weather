@@ -10,6 +10,9 @@ let loc = document.querySelector(".location");
 let celsius_temp;
 const kelvin = 273;
 
+var day_hour = 4;
+var night_hour = 23;
+
 quote_list = ["What you spend years building may be destroyed overnight. Build anyway", "This isn't about the past! It's about the future!", "If at first you don't succeed... succeed later than originally planned.", "Never dig straight down", "Keep calm and play Minecraft", "With great power comes great responsibility", "12345 is a bad password!", "Awesome game design right there!", "Don't look directly at the bugs!", "Lennart lennart = new Lennart();", "Made in Sweden!", "Stay home and play video games!", "Who lives in a pineapple under the sea?", "Be brave like Ukraine", "We live every day we only die once", "Veni, Vidi, Vici!", "The purpose of our lives is to be happy", "My mama always said, life is like a box of chocolates. You never know what you are gonna get", "There are no mistakes, only opportunities"];
 
 //----------
@@ -102,9 +105,10 @@ if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooa
             var time_sunset = getFormattedTime(data.sys.sunset, data.timezone);
             
             var hour_now= new Date().toLocaleTimeString([], { hour: '2-digit'});
-            console.log("hour_now:", hour_now);
-
             
+
+            //hour_now = 23
+            console.log("hour_now:", hour_now);
             //console.log("API weather description: ", data.weather[0].description)
 
             function create_url(random_int){
@@ -128,26 +132,47 @@ if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooa
                 bare_url = 'Mist/' + random_int + '.png';
                 image_url = "url('Mist/" + random_int + ".png')";
                 description_text = 'mist';
+              }else if(weather_description.includes("mist") == true){
+                bare_url = 'Mist/' + random_int + '.png';
+                image_url = "url('Mist/" + random_int + ".png')";
+                description_text = 'mist';
               }else{
                 if(weather_description.includes("clouds") == true){
-                  bare_url = 'Clouds/' + random_int + '.png';
-                  image_url = "url('Clouds/" + random_int + ".png')"
+                  if(hour_now > night_hour || hour_now < day_hour){
+                    bare_url = 'CloudsNight/' + random_int + '.png';
+                    image_url = "url('CloudsNight/" + random_int + ".png')"
+                  }
+                  else{
+                    bare_url = 'CloudsDay/' + random_int + '.png';
+                    image_url = "url('CloudsDay/" + random_int + ".png')"
+                  }
                   description_text = 'clouds';
                 }else if(weather_description.includes("snow") == true){
-                  bare_url = 'Snow/' + random_int + '.png';
-                  image_url = "url('Snow/" + random_int + ".png')";
+                  if(hour_now > night_hour || hour_now < day_hour){
+                    bare_url = 'SnowNight/' + random_int + '.png';
+                    image_url = "url('SnowNight/" + random_int + ".png')";
+                  }else{
+                    bare_url = 'SnowDay/' + random_int + '.png';
+                    image_url = "url('SnowDay/" + random_int + ".png')";
+                  }
                   description_text = 'snow';
                 }else if(weather_description.includes("rain") == true){
-                  bare_url = 'Rain/' + random_int + '.png';
-                  image_url = "url('Rain/" + random_int + ".png')";
+                  if(hour_now > night_hour || hour_now < day_hour){
+                    bare_url = 'RainNight/' + random_int + '.png';
+                    image_url = "url('RainNight/" + random_int + ".png')";
+                  }else{
+                    bare_url = 'RainDay/' + random_int + '.png';
+                    image_url = "url('RainDay/" + random_int + ".png')";
+                  }
                   description_text = 'rain';
-                }else if(weather_description.includes("mist") == true){
-                  bare_url = 'Mist/' + random_int + '.png';
-                  image_url = "url('Mist/" + random_int + ".png')";
-                  description_text = 'mist';
                 }else if(weather_description.includes("clear") == true){
-                  bare_url = 'Clear/' + random_int + '.png';
-                  image_url = "url('Clear/" + random_int + ".png')"
+                  if(hour_now > night_hour || hour_now < day_hour){
+                    bare_url = 'ClearNight/' + random_int + '.png';
+                    image_url = "url('ClearNight/" + random_int + ".png')"
+                  }else{
+                    bare_url = 'ClearDay/' + random_int + '.png';
+                    image_url = "url('ClearDay/" + random_int + ".png')"
+                  }
                   description_text = 'clear sky';
                 }
                 else{
