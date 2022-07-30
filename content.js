@@ -46,6 +46,8 @@ function getRandomInt(min, max) {
 }
 
 function getFormattedTime(unix_time, timezone){
+  
+
   let unix_timestamp = unix_time
   // Create a new JavaScript Date object based on the timestamp
   // multiplied by 1000 so that the argument is in milliseconds, not seconds.
@@ -57,7 +59,7 @@ function getFormattedTime(unix_time, timezone){
   // Minutes part from the timestamp
   var minutes = "0" + date.getMinutes();
   // Will display time in 10:30:23 format
-  var formattedTime = hours + ':' + minutes.substr(-2);
+  var formattedTime = hours;
   console.log("Formatted time", formattedTime);
   return formattedTime;
             
@@ -81,15 +83,14 @@ if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooa
   `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&` +
   `lon=${lon}&appid=7d214574a044cb73159d7627127950b9`;
         
-        var hour_now= new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        console.log("Now is:", hour_now);
+        
         // Calling the API
         fetch(base)
           .then((response) => {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
+            //console.log(data);
             celsius_temp = Math.floor(data.main.temp - kelvin) + ''
             document.getElementById("temperature").innerHTML = celsius_temp;
             
@@ -100,44 +101,62 @@ if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooa
             var time_sunrise = getFormattedTime(data.sys.sunrise, data.timezone);
             var time_sunset = getFormattedTime(data.sys.sunset, data.timezone);
             
+            var hour_now= new Date().toLocaleTimeString([], { hour: '2-digit'});
+            console.log("hour_now:", hour_now);
 
-            console.log("API weather description: ", data.weather[0].description)
+            
+            //console.log("API weather description: ", data.weather[0].description)
 
             function create_url(random_int){
               if(celsius_temp > 29){
                 bare_url = 'Nether/' + random_int + '.png';
                 image_url = "url('Nether/" + random_int + ".png')"
                 description_text = 'hight temperature';
-              }
-              else if(weather_description.includes("clouds") == true){
-                bare_url = 'Clouds/' + random_int + '.png';
-                image_url = "url('Clouds/" + random_int + ".png')"
-                description_text = 'clouds';
-              }else if(weather_description.includes("snow") == true){
-                bare_url = 'Snow/' + random_int + '.png';
-                image_url = "url('Snow/" + random_int + ".png')";
-                description_text = 'snow';
-              }else if(weather_description.includes("rain") == true){
-                bare_url = 'Rain/' + random_int + '.png';
-                image_url = "url('Rain/" + random_int + ".png')";
-                description_text = 'rain';
-              }else if(weather_description.includes("mist") == true){
-                bare_url = 'Mist/' + random_int + '.png';
-                image_url = "url('Mist/" + random_int + ".png')";
-                description_text = 'mist';
-              }else if(weather_description.includes("clear") == true){
-                bare_url = 'Clear/' + random_int + '.png';
-                image_url = "url('Clear/" + random_int + ".png')"
-                description_text = 'clear sky';
+              }else if(time_sunrise - hour_now == 1 || hour_now - time_sunrise == 1 || time_sunrise - hour_now == 0 || hour_now - time_sunrise == 0){
+                bare_url = 'Sunrise/' + random_int + '.png';
+                image_url = "url('Sunrise/" + random_int + ".png')";
+                description_text = "sunrise";
+              }else if(time_sunset - hour_now == 1 || hour_now - time_sunset == 1 || time_sunset - hour_now == 0 || hour_now - time_sunset == 0){
+                bare_url = 'Sunset/' + random_int + '.png';
+                image_url = "url('Sunset/" + random_int + ".png')";
+                description_text = "sunset";
               }else if(weather_description.includes("thunderstorm") == true){
                 bare_url = 'Thunderstorm/' + random_int + '.png';
                 image_url = "url('Thunderstorm/" + random_int + ".png')";
                 description_text = "thunderstorm";
-              }else{
+              }else if(weather_description.includes("mist") == true){
                 bare_url = 'Mist/' + random_int + '.png';
                 image_url = "url('Mist/" + random_int + ".png')";
-                description_text = 'the new day';
+                description_text = 'mist';
+              }else{
+                if(weather_description.includes("clouds") == true){
+                  bare_url = 'Clouds/' + random_int + '.png';
+                  image_url = "url('Clouds/" + random_int + ".png')"
+                  description_text = 'clouds';
+                }else if(weather_description.includes("snow") == true){
+                  bare_url = 'Snow/' + random_int + '.png';
+                  image_url = "url('Snow/" + random_int + ".png')";
+                  description_text = 'snow';
+                }else if(weather_description.includes("rain") == true){
+                  bare_url = 'Rain/' + random_int + '.png';
+                  image_url = "url('Rain/" + random_int + ".png')";
+                  description_text = 'rain';
+                }else if(weather_description.includes("mist") == true){
+                  bare_url = 'Mist/' + random_int + '.png';
+                  image_url = "url('Mist/" + random_int + ".png')";
+                  description_text = 'mist';
+                }else if(weather_description.includes("clear") == true){
+                  bare_url = 'Clear/' + random_int + '.png';
+                  image_url = "url('Clear/" + random_int + ".png')"
+                  description_text = 'clear sky';
+                }
+                else{
+                  bare_url = 'Mist/' + random_int + '.png';
+                  image_url = "url('Mist/" + random_int + ".png')";
+                  description_text = 'the new day';
+                }
               }
+              
               document.getElementById("summary").innerHTML = description_text;
 
               quote_list_len = quote_list.length
