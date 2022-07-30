@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Minecraft Weather",
-    "version": "1.0.2.6",
+    "version": "1.0.1.1",
     "icons": 
       {
         "512": "newtab_icon.jpg"

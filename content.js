@@ -45,9 +45,25 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function getFormattedTime(unix_time){
+  let unix_timestamp = unix_time
+  // Create a new JavaScript Date object based on the timestamp
+  // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+  var date = new Date(unix_timestamp * 1000);
+  // Hours part from the timestamp
+  var hours = date.getHours();
+  // Minutes part from the timestamp
+  var minutes = "0" + date.getMinutes();
+  // Will display time in 10:30:23 format
+  var formattedTime = hours + ':' + minutes.substr(-2);
+  console.log("Formatted time", formattedTime);
+  return formattedTime;
+            
+}
+
 console.log(window.location.href)
 
-if((window.location.href).includes("chrome-extension://hanfmkgligplcdmhbnfbeodonjlglhfm/newtab.html") == true){
+if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooakmibjgd/newtab.html") == true){
   window.addEventListener("load", () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -62,20 +78,27 @@ if((window.location.href).includes("chrome-extension://hanfmkgligplcdmhbnfbeodon
         const base =
   `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&` +
   `lon=${lon}&appid=7d214574a044cb73159d7627127950b9`;
-    
+        
+        var hour_now= new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        console.log("Now is:", hour_now);
         // Calling the API
         fetch(base)
           .then((response) => {
             return response.json();
           })
           .then((data) => {
-            //console.log(data);
+            console.log(data);
             celsius_temp = Math.floor(data.main.temp - kelvin) + ''
             document.getElementById("temperature").innerHTML = celsius_temp;
             
             //loc.textContent = data.name + ", " + data.sys.country;
 
             let weather_description = data.weather[0].description;
+
+            var time_sunrise = getFormattedTime(data.sys.sunrise);
+            var time_sunset = getFormattedTime(data.sys.sunset);
+            
+            
 
             console.log("API weather description: ", data.weather[0].description)
 
