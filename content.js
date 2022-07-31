@@ -106,7 +106,6 @@ if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooa
             
             var hour_now= new Date().toLocaleTimeString([], { hour: '2-digit'});
             
-
             //hour_now = 1
             //celsius_temp = 30
             //weather_description = "snow";
