@@ -49,12 +49,8 @@ function getRandomInt(min, max) {
 }
 
 function getFormattedTime(unix_time, timezone){
-  
-
-  let unix_timestamp = unix_time
-  // Create a new JavaScript Date object based on the timestamp
   // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-  var date = new Date(unix_timestamp * 1000);
+  var date = new Date(unix_time * 1000);
   // Hours part from the timestamp
   var hours = date.getHours();
   // timezone is shift in seconds from UTC
@@ -106,11 +102,13 @@ if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooa
             
             var hour_now= new Date().toLocaleTimeString([], { hour: '2-digit'});
             
+            // ----- Testing area -----------
             //hour_now = 1
             //celsius_temp = 30
             //weather_description = "snow";
             //console.log("hour_now:", hour_now);
             //console.log("API weather description: ", data.weather[0].description)
+            // -------------------------------
 
             function create_url(random_int){
               if(celsius_temp > 29){
@@ -194,7 +192,6 @@ if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooa
               }else{
                 document.getElementById("quote").innerHTML = quote_list[quote_random_int];
               }
-            
             }
 
             let random_int = getRandomInt(0, 16);
