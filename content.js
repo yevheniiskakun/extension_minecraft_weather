@@ -115,11 +115,11 @@ if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooa
                 bare_url = 'Nether/' + random_int + '.png';
                 image_url = "url('Nether/" + random_int + ".png')"
                 description_text = 'hight temperature';
-              }else if(time_sunrise - hour_now == 1 || hour_now - time_sunrise == 1 || time_sunrise - hour_now == 0 || hour_now - time_sunrise == 0){
+              }else if(time_sunrise - hour_now == 1 || time_sunrise - hour_now == 0 || hour_now - time_sunrise == 0){
                 bare_url = 'Sunrise/' + random_int + '.png';
                 image_url = "url('Sunrise/" + random_int + ".png')";
                 description_text = "sunrise";
-              }else if(time_sunset - hour_now == 1 || hour_now - time_sunset == 1 || time_sunset - hour_now == 0 || hour_now - time_sunset == 0){
+              }else if(time_sunset - hour_now == 1 || time_sunset - hour_now == 0 || hour_now - time_sunset == 0){
                 bare_url = 'Sunset/' + random_int + '.png';
                 image_url = "url('Sunset/" + random_int + ".png')";
                 description_text = "sunset";
