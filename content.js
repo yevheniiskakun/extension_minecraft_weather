@@ -66,7 +66,7 @@ function getFormattedTime(unix_time, timezone){
 
 console.log(window.location.href)
 
-if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooakmibjgd/newtab.html") == true){
+if((window.location.href).includes("chrome-extension://lmmokpkjgldcpfhlchpgfgccagmmpcgn/newtab.html") == true){
   window.addEventListener("load", () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -204,7 +204,7 @@ if((window.location.href).includes("chrome-extension://gapnoohccnekkhocokmjdcooa
                 if (res.ok) {
                   document.body.style.backgroundImage = image_url; // if exist show it
                 } else {
-                    console.log('Image does not exist.');
+                    console.log(bare_url + ' Image does not exist.');
                 }
             }).catch((err) => {                                    // if not   
               random_int = getRandomInt(0, 7);                     // search for another
