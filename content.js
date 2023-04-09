@@ -64,9 +64,9 @@ function getFormattedTime(unix_time, timezone){
             
 }
 
-console.log(window.location.href)
+//console.log(window.location.href)
 
-if((window.location.href).includes("chrome-extension://lmmokpkjgldcpfhlchpgfgccagmmpcgn/newtab.html") == true){
+if(window.location.href){
   window.addEventListener("load", () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -214,7 +214,8 @@ if((window.location.href).includes("chrome-extension://lmmokpkjgldcpfhlchpgfgcca
             // -------------------------------------
             
             document.body.style.backgroundRepeat = "no-repeat";
-            document.body.style.backgroundSize = "100% 100%";
+            //document.body.style.backgroundSize = "100% 100%";
+            document.body.style.backgroundStyle = "cover";
           });
       });
     }
