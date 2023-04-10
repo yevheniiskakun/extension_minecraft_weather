@@ -194,7 +194,7 @@ if(window.location.href){
               }
             }
 
-            let random_int = getRandomInt(0, 16);
+            let random_int = getRandomInt(0, 30);
             //console.log("Random number", random_int)
             create_url(random_int);
 
