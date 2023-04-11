@@ -20,7 +20,7 @@ let typingTimer;                //timer identifier
 let doneTypingInterval = 2000;  //time in ms (2 seconds)
 let myInput = document.getElementById('search_input');
 
-//on keyup, start the countdown
+//on keyup, start the countdown. After it we will start to search given string in Google
 myInput.addEventListener('keyup', () => {
     clearTimeout(typingTimer);
     if (myInput.value) {
@@ -33,7 +33,7 @@ myInput.addEventListener('keyup', () => {
     
 });
 
-//user is "finished typing," do something
+//check if user is "finished typing," do something
 function doneTyping () {
   var searched_text = document.getElementById("search_input").value;
   console.log(searched_text);
@@ -41,7 +41,7 @@ function doneTyping () {
   window.location.href = "https://www.google.com/search?q=" + searched_text;
 }
 
-//----------
+//---------- Generate random int in given range
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -64,13 +64,11 @@ function getFormattedTime(unix_time, timezone){
             
 }
 
-//console.log(window.location.href)
-
 if(window.location.href){
   window.addEventListener("load", () => {
     if (navigator.geolocation) {
+      // Get current user possition to determine city where he located in
       navigator.geolocation.getCurrentPosition((position) => {
-        //console.log(position);
         lon = position.coords.longitude;
         lat = position.coords.latitude;
     
@@ -86,6 +84,7 @@ if(window.location.href){
             return response.json();
           })
           .then((data) => {
+            // Get temperature in celsius to show it on the page
             celsius_temp = Math.floor(data.main.temp - kelvin) + '';
             document.getElementById("temperature").innerHTML = celsius_temp;
             
@@ -183,7 +182,7 @@ if(window.location.href){
             let random_int = getRandomInt(0, 30);
             create_url(random_int);
 
-            // Check if image exist
+            // Check if image for background exist
             fetch(bare_url, { method: 'HEAD' })
             .then(res => {
                 if (res.ok) {
@@ -192,12 +191,13 @@ if(window.location.href){
                     console.log(bare_url + ' Image does not exist.');
                 }
             }).catch((err) => {                                    // if not   
-              random_int = getRandomInt(0, 7);                     // search for another
+              random_int = getRandomInt(0, 7);                     // search for another im smaller range
               create_url(random_int);
               document.body.style.backgroundImage = image_url;
             });
             // -------------------------------------
             
+            // Set background properties to make its more responsive
             document.body.style.backgroundRepeat = "no-repeat";
             document.body.style.backgroundSize = "cover";
             document.body.style.backgroundPosition = "center";
