@@ -17,7 +17,7 @@ quote_list = ["What you spend years building may be destroyed overnight. Build a
 
 //----------
 let typingTimer;                //timer identifier
-let doneTypingInterval = 2000;  //time in ms (3 seconds)
+let doneTypingInterval = 2000;  //time in ms (2 seconds)
 let myInput = document.getElementById('search_input');
 
 //on keyup, start the countdown
@@ -74,9 +74,6 @@ if(window.location.href){
         lon = position.coords.longitude;
         lat = position.coords.latitude;
     
-        // API ID
-        const api = "7d214574a044cb73159d7627127950b9";
-    
         // API URL
         const base =
   `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&` +
@@ -89,26 +86,17 @@ if(window.location.href){
             return response.json();
           })
           .then((data) => {
-            //console.log(data);
-            celsius_temp = Math.floor(data.main.temp - kelvin) + ''
+            celsius_temp = Math.floor(data.main.temp - kelvin) + '';
             document.getElementById("temperature").innerHTML = celsius_temp;
             
-            //loc.textContent = data.name + ", " + data.sys.country;
 
             let weather_description = data.weather[0].description;
 
             var time_sunrise = getFormattedTime(data.sys.sunrise, data.timezone);
             var time_sunset = getFormattedTime(data.sys.sunset, data.timezone);
             
-            var hour_now= new Date().toLocaleTimeString([], { hour: '2-digit'});
-            
-            // ----- Testing area -----------
-            //hour_now = 1
-            //celsius_temp = 30
-            //weather_description = "snow";
-            //console.log("hour_now:", hour_now);
-            //console.log("API weather description: ", data.weather[0].description)
-            // -------------------------------
+            var hour_now = new Date().toLocaleTimeString([], { hour: '2-digit'});
+
 
             function create_url(random_int){
               if(celsius_temp > 29){
@@ -185,8 +173,6 @@ if(window.location.href){
 
               quote_list_len = quote_list.length
               let quote_random_int = getRandomInt(0, quote_list_len - 1);
-              //console.log("Quote list length: ", quote_list_len);
-              //console.log("Quote random int: ", quote_random_int);
               if(quote_list[quote_random_int] == undefined){
                 document.getElementById("quote").innerHTML = quote_list[1];
               }else{
@@ -195,7 +181,6 @@ if(window.location.href){
             }
 
             let random_int = getRandomInt(0, 30);
-            //console.log("Random number", random_int)
             create_url(random_int);
 
             // Check if image exist
